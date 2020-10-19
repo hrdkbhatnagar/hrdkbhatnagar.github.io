@@ -23,7 +23,8 @@ Hi! I am Hardik, and I am currently pursuing double majors in B.E. **Computer Sc
 
 I am broadly interested in the intersection of biology and computer science. I'm exploring machine learning, deep learning, computational neuroscience, computational biology and bioinformatics. 
 
-I most recently parcipated at the [Neuromatch Academy](https://www.neuromatchacademy.org/), a summer school on computational neuroscience. I worked on various computational tools and their applications for real-world neuroscience problems. I also worked on the [Human Connectome Project (HCP)](https://www.humanconnectome.org/study/hcp-young-adult/data-releases) dataset to analyze neural patterns in face and shape recognition in the human brain.
+I most recently parcipated at the [Neuromatch Academy](https://www.neuromatchacademy.org/), a summer school on computational neuroscience. I worked on various computational tools and their applications for real-world neuroscience problems. 
+I also worked on the [Human Connectome Project (HCP)](https://www.humanconnectome.org/study/hcp-young-adult/data-releases) dataset to analyze neural patterns in face and shape recognition in the human brain.
 
 I previously worked at the [RWTH Aachen University](https://www.rwth-aachen.de/go/id/a/?lidx=1) as a research intern analyzing protein engineering techniques using machine learning tools. Specifically, I explored directed evolution, a method of selection based on natural evolution to filter specific biophysical properties of the proteins.
 

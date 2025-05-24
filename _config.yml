@@ -194,6 +194,9 @@ exclude:
   - _pages/repositories.md
   - _news/
   - _include/news.liquid
+  - _projects/
+  - _pages/projects.md
+
 keep_files:
   - CNAME
   - .nojekyll

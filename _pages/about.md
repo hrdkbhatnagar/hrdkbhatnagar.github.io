@@ -35,5 +35,5 @@ Previously, I worked at the Max Planck Institute for Biological Cybernetics with
 
 I hold a dual degree in Computer Science and Biological Sciences from BITS Pilani, India. 
 
-You can view my CV or reach out by [email](mailto:hrdk.bhatnagar@gmail.com). I’m always open to discussing research or collaboration.
+You can view my [CV](https://drive.google.com/file/d/1I2uVx_3ZGI-0-7i8hf7oz3bHK8Jf35Qe/view?usp=sharing) or reach out by [email](mailto:hrdk.bhatnagar@gmail.com)!
 

@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+import publications from '../data/publications.json';
+
+// Sort publications by year (newest first)
+const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
+---
+
+<Layout title="Publications - Hardik Bhatnagar">
+  <Header />
+  <main>
+    <h1 class="page-title">Publications</h1>
+    {sortedPublications.length > 0 ? (
+      <div class="publications-list">
+        {sortedPublications.map((pub) => (
+          <PublicationItem
+            title={pub.title}
+            authors={pub.authors}
+            venue={pub.venue}
+            year={pub.year}
+            month={pub.month}
+            thumbnail={pub.thumbnail}
+            links={pub.links}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="empty-state">No publications yet.</p>
+    )}
+    <div class="footer-spacer"></div>
+  </main>
+</Layout>

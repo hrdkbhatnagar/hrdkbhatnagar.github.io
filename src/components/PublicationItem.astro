@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  authors: string[];
+  venue: string;
+  year: number;
+  month?: string;
+  thumbnail?: string;
+  links?: {
+    paper?: string;
+    code?: string;
+    blog?: string;
+    website?: string;
+  };
+}
+
+const { title, authors, venue, year, month, thumbnail, links } = Astro.props;
+
+// Just use venue, no year
+const venueStr = venue;
+
+// Highlight "Hardik Bhatnagar" in authors
+const highlightedAuthors = authors.map(author => {
+  if (author.toLowerCase().includes('hardik') || author.toLowerCase().includes('bhatnagar')) {
+    return `<span class="highlight">${author}</span>`;
+  }
+  return author;
+}).join(', ');
+
+const paperLink = links?.paper;
+---
+
+<article class="publication-item">
+  {thumbnail ? (
+    <img src={thumbnail} alt={`Thumbnail for ${title}`} class="publication-thumbnail" loading="lazy" />
+  ) : (
+    <div class="publication-thumbnail"></div>
+  )}
+  <div class="publication-content">
+    <h3>
+      {paperLink ? (
+        <a href={paperLink} target="_blank" rel="noopener">{title}</a>
+      ) : (
+        title
+      )}
+    </h3>
+    <p class="publication-authors" set:html={highlightedAuthors} />
+    <span class="publication-venue">{venueStr}</span>
+    {links && Object.keys(links).length > 0 && (
+      <div class="publication-links">
+        {links.paper && <a href={links.paper} class="publication-link" target="_blank" rel="noopener">Paper</a>}
+        {links.code && <a href={links.code} class="publication-link" target="_blank" rel="noopener">Code</a>}
+        {links.blog && <a href={links.blog} class="publication-link" target="_blank" rel="noopener">Blog</a>}
+        {links.website && <a href={links.website} class="publication-link" target="_blank" rel="noopener">Website</a>}
+      </div>
+    )}
+  </div>
+</article>

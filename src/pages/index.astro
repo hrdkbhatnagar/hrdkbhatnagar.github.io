@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+import publications from '../data/publications.json';
+
+// Filter featured and sort by year (newest first)
+const featuredPublications = publications
+  .filter((pub: any) => pub.featured)
+  .sort((a: any, b: any) => b.year - a.year);
+---
+
+<Layout title="Hardik Bhatnagar">
+  <Header />
+  <main>
+    <section class="about-section">
+      <div class="about-content">
+        <p>
+          I'm a PhD at the Tübingen AI Center, advised by <a href="https://scholar.google.de/citations?user=0z0fNxUAAAAJ&hl=en" target="_blank" rel="noopener">Matthias Bethge</a> and <a href="https://www.andriushchenko.me/" target="_blank" rel="noopener">Maksym Andriushchenko</a>. I work on understanding LLM capabilities and failure modes, with a focus on long-horizon evaluation and safety.
+        </p>
+        <p>
+          My research asks: how do we rigorously measure what LLMs can and can't do—especially in extended autonomous settings. I am working on PostTrainBench, a benchmark measuring whether CLI agents can autonomously post-train LLMs, and led the Sober Look at Reasoning project showing that many claimed reasoning improvements are within noise margins. At <a href="https://www.arena.education/" target="_blank" rel="noopener">ARENA 6.0</a>, I built a long-horizon agent benchmark.
+        </p>
+        <p>
+          I also worked on mechanistic interpretability. At <a href="https://www.lasrlabs.org/" target="_blank" rel="noopener">LASR Labs</a> with <a href="https://x.com/jbloomaus" target="_blank" rel="noopener">Joseph Bloom</a> (UK AISI), we discovered "feature absorption"—a systematic failure mode in Sparse Autoencoders. At Microsoft Research with <a href="https://scholar.google.com/citations?hl=en&user=w8WJCnkAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener">Navin Goyal</a>, I studied how harmful concepts transform during post-training.
+        </p>
+        <p>
+          Previously, I worked in computational neuroscience at the Max Planck Institute for Biological Cybernetics and EPFL, modeling how visual features map onto neural activity. I hold a dual degree in Computer Science and Biological Sciences from BITS Pilani.
+        </p>
+        <div class="about-links">
+          <a href="mailto:hrdk.bhatnagar@gmail.com" class="about-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Email
+          </a>
+          <a href="https://drive.google.com/file/d/1I2uVx_3ZGI-0-7i8hf7oz3bHK8Jf35Qe/view?usp=sharing" class="about-link" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            CV
+          </a>
+          <a href="https://github.com/hrdkbhatnagar" class="about-link" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            GitHub
+          </a>
+          <a href="https://scholar.google.com/citations?user=YOUR_ID" class="about-link" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            Scholar
+          </a>
+          <a href="https://x.com/YOUR_HANDLE" class="about-link" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter
+          </a>
+        </div>
+      </div>
+      <div class="about-image">
+        <img src="/images/profile.jpg" alt="Hardik Bhatnagar" class="profile-image" />
+      </div>
+    </section>
+
+    <section class="mt-4">
+      <div class="section-header">
+        <h2 class="section-title">Publications</h2>
+        <a href="/publications" class="section-link">View all &rarr;</a>
+      </div>
+      {featuredPublications.length > 0 ? (
+        <div class="publications-list">
+          {featuredPublications.map((pub) => (
+            <PublicationItem
+              title={pub.title}
+              authors={pub.authors}
+              venue={pub.venue}
+              year={pub.year}
+              month={pub.month}
+              thumbnail={pub.thumbnail}
+              links={pub.links}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="empty-state">No publications yet.</p>
+      )}
+    </section>
+    <div class="footer-spacer"></div>
+  </main>
+</Layout>

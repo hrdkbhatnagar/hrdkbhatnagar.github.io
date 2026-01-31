@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ProjectItem from '../components/ProjectItem.astro';
+import projects from '../data/projects.json';
+---
+
+<Layout title="Projects - Hardik Bhatnagar">
+  <Header />
+  <main>
+    <h1 class="page-title">Projects</h1>
+    <div class="projects-list">
+      {projects.map((project) => (
+        <ProjectItem
+          title={project.title}
+          description={project.description}
+          date={project.date}
+          institution={project.institution}
+          tags={project.tags}
+          link={project.link}
+        />
+      ))}
+    </div>
+    <div class="footer-spacer"></div>
+  </main>
+</Layout>

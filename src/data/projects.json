@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Mechanistic Interpretability of Language and Vision Models",
+    "description": "Reverse engineering and explaining the internal representations of language and vision models with mechanistic interpretability.",
+    "date": "Present",
+    "institution": "Microsoft Research, India",
+    "tags": ["Deep Learning", "Interpretability", "Vision", "NLP"],
+    "link": null
+  },
+  {
+    "title": "Linking saliency with modulations along the visual processing hierarchy",
+    "description": "Analyzing a large fMRI dataset (the NSD dataset) to create 'brain-derived' deep learning models for activity prediction. Designing saliency metrics for stimuli and identifying correlations with retinotopic activity in visual, parietal, and prefrontal regions of the brain.",
+    "date": "Oct 2022 - 2023",
+    "institution": "University of Tubingen, Germany",
+    "tags": ["Computational Neuroscience", "fMRI", "Deep Learning"],
+    "link": null
+  },
+  {
+    "title": "Inferring neuronal computation from partial observations",
+    "description": "Investigated methods for inferring a neuron's computations from incomplete observations of its inputs and outputs. Simulated neurons as hierarchical linear-nonlinear models using PyTorch and utilized gradient descent methods to infer parameters.",
+    "date": "Feb - Aug 2022",
+    "institution": "Allen Institute of Brain Sciences, Seattle",
+    "tags": ["Computational Neuroscience", "PyTorch", "Neural Modeling"],
+    "link": null
+  },
+  {
+    "title": "Investigating the physiology of aging across genetically diverse mouse population",
+    "description": "Analyzed biological time-series data with machine learning and computational modeling. Developed a health index to summarize aging properties across genetically diverse mouse populations.",
+    "date": "Aug 2021 - Jan 2022",
+    "institution": "EPFL, Switzerland",
+    "tags": ["Machine Learning", "Bioinformatics", "Time Series"],
+    "link": null
+  },
+  {
+    "title": "Cloud Infrastructure Automation for Health Checks and Maintenance",
+    "description": "Worked on a proprietary cloud infrastructure platform for monitoring the health of cloud instances and load balancing. Developed tools for automating cloud instance health checks and maintenance.",
+    "date": "May - July 2021",
+    "institution": "ServiceNow, Hyderabad, India",
+    "tags": ["Cloud Computing", "DevOps", "Automation"],
+    "link": null
+  },
+  {
+    "title": "Formal Language Modeling of Biological Networks",
+    "description": "Analyzed biological networks such as gene regulatory networks (GRNs) using formal language and automata theory. Focused on fault analysis of GRNs and modeled stochasticity using probabilistic boolean networks.",
+    "date": "Aug - Dec 2020",
+    "institution": "BITS Pilani",
+    "tags": ["Computational Biology", "Formal Methods", "GRN"],
+    "link": null
+  },
+  {
+    "title": "Machine Learning for Coronary Heart Disease Prediction",
+    "description": "Used machine learning and deep learning models to understand the biological parameters influencing heart diseases. Compared various models for their performance in predicting coronary heart disease.",
+    "date": "Aug - Dec 2020",
+    "institution": "BITS Pilani",
+    "tags": ["Machine Learning", "Healthcare", "Deep Learning"],
+    "link": null
+  },
+  {
+    "title": "Analysis of neural patterns between face and shape recognition",
+    "description": "Worked on the Human Connectome Project (HCP) dataset at Neuromatch Academy, analyzing neural patterns between face and shape recognition in the brain.",
+    "date": "July 2020",
+    "institution": "Neuromatch Academy",
+    "tags": ["Computational Neuroscience", "fMRI", "HCP"],
+    "link": null
+  },
+  {
+    "title": "Protein engineering with deep learning",
+    "description": "Worked on prediction of biophysical properties of enzymes created through directed evolution. Experimented with various machine learning and deep learning models and analyzed high throughput data for protein mutation samples.",
+    "date": "May - July 2020",
+    "institution": "RWTH Aachen University, Germany",
+    "tags": ["Deep Learning", "Protein Engineering", "Bioinformatics"],
+    "link": null
+  },
+  {
+    "title": "Machine learning for cancer prognosis using biomedical image data",
+    "description": "Analyzed biomedical image samples with machine learning and deep learning models. Performed biomedical image segmentation with convolutional neural networks and classified MR images using 3-D voxel data.",
+    "date": "May - July 2020",
+    "institution": "BITS Pilani",
+    "tags": ["Deep Learning", "Medical Imaging", "CNN"],
+    "link": null
+  },
+  {
+    "title": "Custom JupyterHub AWS instance with automated load balancing",
+    "description": "Developed a proof of concept AWS JupyterHub cluster using Kubernetes for internal company resources. Worked on automating load management and custom login protocol based on internal authentication.",
+    "date": "May - July 2019",
+    "institution": "UST Global, Trivandrum, India",
+    "tags": ["AWS", "Kubernetes", "DevOps"],
+    "link": null
+  }
+]

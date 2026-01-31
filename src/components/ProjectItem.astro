@@ -1,0 +1,34 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: string;
+  institution: string;
+  tags?: string[];
+  link?: string | null;
+}
+
+const { title, description, date, institution, tags, link } = Astro.props;
+---
+
+<article class="project-item">
+  <div class="project-header">
+    <h3 class="project-title">
+      {link ? (
+        <a href={link} target="_blank" rel="noopener">{title}</a>
+      ) : (
+        title
+      )}
+    </h3>
+    <span class="project-meta">{date}</span>
+  </div>
+  <p class="project-institution">{institution}</p>
+  <p class="project-description">{description}</p>
+  {tags && tags.length > 0 && (
+    <div class="project-tags">
+      {tags.map(tag => (
+        <span class="project-tag">{tag}</span>
+      ))}
+    </div>
+  )}
+</article>

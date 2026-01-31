@@ -1,0 +1,51 @@
+[
+  {
+    "title": "PostTrainBench: Measuring AI Ability to Perform LLM Post-Training",
+    "authors": ["Ben Rank", "Hardik Bhatnagar", "Matthias Bethge", "Maksym Andriushchenko"],
+    "venue": "Preprint",
+    "year": 2025,
+    "thumbnail": "/images/publications/posttrainbench.jpg",
+    "featured": true,
+    "links": {
+      "website": "https://posttrainbench.com"
+    }
+  },
+  {
+    "title": "A Sober Look at Progress in Language Model Reasoning: Pitfalls and Paths to Reproducibility",
+    "authors": ["Andreas Hochlehnert*", "Hardik Bhatnagar*", "Vishaal Udandarao", "Samuel Albanie", "Ameya Prabhu", "Matthias Bethge"],
+    "venue": "COLM 2025",
+    "year": 2025,
+    "thumbnail": "/images/publications/sober-reasoning.jpg",
+    "featured": true,
+    "links": {
+      "paper": "https://arxiv.org/abs/2504.07086",
+      "code": "https://github.com/bethgelab/sober-reasoning",
+      "website": "https://bethgelab.github.io/sober-reasoning/"
+    }
+  },
+  {
+    "title": "A is for Absorption: Studying Feature Splitting and Absorption in Sparse Autoencoders",
+    "authors": ["David Chanin*", "James Wilken-Smith*", "Tomas Dulka*", "Hardik Bhatnagar*", "Joseph Bloom"],
+    "venue": "NeurIPS 2025 (Oral)",
+    "year": 2024,
+    "thumbnail": "/images/publications/absorption.jpg",
+    "featured": true,
+    "links": {
+      "paper": "https://arxiv.org/abs/2409.14507",
+      "code": "https://github.com/lasr-spelling/sae-spelling",
+      "blog": "https://www.lesswrong.com/posts/3zBsxeZzd3cvuueMJ/paper-a-is-for-absorption-studying-feature-splitting-and",
+      "website": "https://feature-absorption.streamlit.app/"
+    }
+  },
+  {
+    "title": "Shared neural activity patterns between facial expression and shape recognition",
+    "authors": ["Avisha", "A. Singh", "Hardik Bhatnagar", "A. Dipani", "A. Bhattacharjee", "N. Seethapathi"],
+    "venue": "Neuromatch Conference",
+    "year": 2020,
+    "month": "October",
+    "featured": false,
+    "links": {
+      "paper": "https://conference.neuromatch.io/abstract?edition=2020-3&submission_id=recuX3Ev12RWz5m7j"
+    }
+  }
+]

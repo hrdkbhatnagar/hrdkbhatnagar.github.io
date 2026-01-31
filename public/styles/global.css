@@ -374,11 +374,15 @@ p a:hover, .about-content a:hover {
 .publication-venue {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: var(--text-secondary);
   padding: 3px 10px;
-  background: var(--bg-alt);
+  background: rgba(191, 138, 84, 0.15);
   border-radius: 3px;
+}
+
+[data-theme="dark"] .publication-venue {
+  background: rgba(212, 165, 116, 0.2);
 }
 
 .meta-separator {

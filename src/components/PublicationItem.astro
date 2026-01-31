@@ -28,6 +28,13 @@ const highlightedAuthors = authors.map(author => {
 }).join(', ');
 
 const paperLink = links?.paper;
+
+// Build array of link items for proper separator handling
+const linkItems: { label: string; url: string }[] = [];
+if (links?.paper) linkItems.push({ label: 'Paper', url: links.paper });
+if (links?.code) linkItems.push({ label: 'Code', url: links.code });
+if (links?.blog) linkItems.push({ label: 'Blog', url: links.blog });
+if (links?.website) linkItems.push({ label: 'Website', url: links.website });
 ---
 
 <article class="publication-item">
@@ -45,14 +52,19 @@ const paperLink = links?.paper;
       )}
     </h3>
     <p class="publication-authors" set:html={highlightedAuthors} />
-    <span class="publication-venue">{venueStr}</span>
-    {links && Object.keys(links).length > 0 && (
-      <div class="publication-links">
-        {links.paper && <a href={links.paper} class="publication-link" target="_blank" rel="noopener">Paper</a>}
-        {links.code && <a href={links.code} class="publication-link" target="_blank" rel="noopener">Code</a>}
-        {links.blog && <a href={links.blog} class="publication-link" target="_blank" rel="noopener">Blog</a>}
-        {links.website && <a href={links.website} class="publication-link" target="_blank" rel="noopener">Website</a>}
-      </div>
-    )}
+    <div class="publication-meta">
+      <span class="publication-venue">{venueStr}</span>
+      {linkItems.length > 0 && (
+        <>
+          <span class="meta-separator">·</span>
+          {linkItems.map((item, i) => (
+            <>
+              {i > 0 && <span class="meta-separator">·</span>}
+              <a href={item.url} class="publication-link" target="_blank" rel="noopener">{item.label}</a>
+            </>
+          ))}
+        </>
+      )}
+    </div>
   </div>
 </article>

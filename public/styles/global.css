@@ -326,6 +326,12 @@ p a:hover, .about-content a:hover {
   object-fit: cover;
   border-radius: var(--border-radius);
   background: var(--bg-alt);
+  filter: saturate(0.7) sepia(0.1);
+  transition: filter 0.3s ease;
+}
+
+.publication-thumbnail:hover {
+  filter: saturate(0.85) sepia(0.05);
 }
 
 .publication-content h3 {

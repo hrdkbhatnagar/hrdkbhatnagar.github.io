@@ -288,6 +288,7 @@ p a:hover, .about-content a:hover {
   .about-section {
     flex-direction: column-reverse;
     align-items: center;
+    gap: var(--space-lg);
   }
 
   .profile-image {
@@ -297,6 +298,17 @@ p a:hover, .about-content a:hover {
 
   .about-links {
     justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .about-link {
+    flex-direction: column;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    padding: 8px 4px 6px;
+    gap: 4px;
+    font-size: 0.6875rem;
   }
 }
 

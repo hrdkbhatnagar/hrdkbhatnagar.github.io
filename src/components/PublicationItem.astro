@@ -27,7 +27,8 @@ const highlightedAuthors = authors.map(author => {
   return author;
 }).join(', ');
 
-const paperLink = links?.paper;
+// Link title to paper, or website if no paper
+const titleLink = links?.paper || links?.website;
 
 // Build array of link items for proper separator handling
 const linkItems: { label: string; url: string }[] = [];
@@ -45,8 +46,8 @@ if (links?.website) linkItems.push({ label: 'Website', url: links.website });
   )}
   <div class="publication-content">
     <h3>
-      {paperLink ? (
-        <a href={paperLink} target="_blank" rel="noopener">{title}</a>
+      {titleLink ? (
+        <a href={titleLink} target="_blank" rel="noopener">{title}</a>
       ) : (
         title
       )}

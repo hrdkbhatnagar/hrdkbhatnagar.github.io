@@ -2,11 +2,13 @@
   {
     "title": "PostTrainBench: Measuring AI Ability to Perform LLM Post-Training",
     "authors": ["Ben Rank*", "Hardik Bhatnagar*", "Matthias Bethge", "Maksym Andriushchenko"],
-    "venue": "Preprint",
-    "year": 2025,
+    "venue": "ICML 2026",
+    "year": 2026,
     "thumbnail": "/images/publications/posttrainbench.jpg",
     "featured": true,
+    "award": "Best Paper · ICLR 2026 RSI Workshop",
     "links": {
+      "paper": "https://arxiv.org/abs/2603.08640",
       "code": "https://github.com/aisa-group/PostTrainBench",
       "website": "https://posttrainbench.com"
     }

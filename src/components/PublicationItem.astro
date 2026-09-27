@@ -1,4 +1,6 @@
 ---
+import Mark from './Mark.astro';
+
 interface Props {
   title: string;
   authors: string[];
@@ -18,6 +20,9 @@ interface Props {
 const { title, authors, venue, year, month, thumbnail, award, links } = Astro.props;
 
 const venues = Array.isArray(venue) ? venue : [venue];
+
+// "Best Paper · ICLR 2026 RSI Workshop" -> name in red, where it was given in ink
+const [awardName, ...awardDetail] = award ? award.split(' · ') : [];
 
 // Highlight "Hardik Bhatnagar" in authors
 const highlightedAuthors = authors.map(author => {
@@ -39,10 +44,17 @@ if (links?.website) linkItems.push({ label: 'Website', url: links.website });
 ---
 
 <article class="publication-item">
+  <Mark name="rule" class="publication-rule" />
   {thumbnail ? (
-    <img src={thumbnail} alt={`Thumbnail for ${title}`} class="publication-thumbnail" loading="lazy" />
+    <div class="publication-thumbnail">
+      <img src={thumbnail} alt={`Thumbnail for ${title}`} loading="lazy" />
+      {award && <Mark name="ribbon" class="award-ribbon" />}
+    </div>
   ) : (
-    <div class="publication-thumbnail"></div>
+    <div class="publication-thumbnail publication-thumbnail--empty" aria-hidden="true">
+      <span>{year}</span>
+      {award && <Mark name="ribbon" class="award-ribbon" />}
+    </div>
   )}
   <div class="publication-content">
     <h3>
@@ -57,23 +69,22 @@ if (links?.website) linkItems.push({ label: 'Website', url: links.website });
       {venues.map((v) => (
         <span class="publication-venue">{v}</span>
       ))}
-      {award && (
-        <span class="publication-award">
-          <span class="award-mark" aria-hidden="true">★</span>
-          {award}
-        </span>
-      )}
       {linkItems.length > 0 && (
-        <>
-          <span class="meta-separator">·</span>
+        <span class="publication-links">
           {linkItems.map((item, i) => (
             <>
               {i > 0 && <span class="meta-separator">·</span>}
               <a href={item.url} class="publication-link" target="_blank" rel="noopener">{item.label}</a>
             </>
           ))}
-        </>
+        </span>
       )}
     </div>
+    {award && (
+      <p class="publication-award">
+        <span class="award-name">{awardName}</span>
+        {awardDetail.length > 0 && <span class="award-detail">· {awardDetail.join(' · ')}</span>}
+      </p>
+    )}
   </div>
 </article>

@@ -1,7 +1,8 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import Mark from './Mark.astro';
 
-const pathname = Astro.url.pathname;
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const navLinks = [
   { href: '/', label: 'About' },
@@ -9,22 +10,13 @@ const navLinks = [
 ];
 ---
 
-<header class="header">
-  <a href="/" class="logo">Hardik Bhatnagar</a>
+<header class="header rise" style="--i: 0">
+  <a href="/" class="logo">
+    Hardik Bhatnagar
+    <Mark name="underline" class="logo-underline draw on-view" />
+  </a>
 
-  <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="3" y1="12" x2="21" y2="12"></line>
-      <line x1="3" y1="6" x2="21" y2="6"></line>
-      <line x1="3" y1="18" x2="21" y2="18"></line>
-    </svg>
-    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-  </button>
-
-  <nav class="nav" id="nav">
+  <nav class="nav">
     {navLinks.map(link => (
       <a
         href={link.href}
@@ -37,107 +29,87 @@ const navLinks = [
   </nav>
 </header>
 
-<script>
-  const toggle = document.getElementById('menu-toggle');
-  const nav = document.getElementById('nav');
-
-  toggle?.addEventListener('click', () => {
-    nav?.classList.toggle('open');
-    toggle.classList.toggle('open');
-  });
-</script>
-
 <style>
   .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 2rem 0;
-    border-bottom: 1px dashed var(--border);
-    margin-bottom: 3rem;
+    align-items: baseline;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    padding: 3.5rem 0 0;
+    margin-bottom: 4.5rem;
   }
 
   .logo {
+    position: relative;
     font-family: var(--font-display);
-    font-size: 1.875rem;
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    color: var(--text);
+    font-size: clamp(2.1rem, 5vw, 2.6rem);
+    font-weight: 380;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    color: var(--ink);
     text-decoration: none;
   }
 
   .logo:hover {
-    color: var(--accent);
+    color: var(--ink);
   }
 
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: var(--text);
-  }
-
-  .menu-toggle .close-icon {
-    display: none;
-  }
-
-  .menu-toggle.open .menu-icon {
-    display: none;
-  }
-
-  .menu-toggle.open .close-icon {
-    display: block;
+  .logo :global(.logo-underline) {
+    position: absolute;
+    left: -2%;
+    bottom: -0.62em;
+    width: 104%;
+    color: var(--rubric);
+    --pen-delay: 380ms;
+    --pen-duration: 520ms;
   }
 
   .nav {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 1.6rem;
   }
 
   .nav-link {
-    font-family: var(--font-sans);
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.9375rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    transition: color 0.15s ease;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    text-decoration: none;
+    transition: color 150ms ease;
   }
 
-  .nav-link:hover,
   .nav-link.active {
-    color: var(--text);
+    color: var(--ink);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover {
+      color: var(--ink);
+    }
+  }
+
+  .nav-link.active {
+    text-decoration: underline;
+    text-decoration-color: var(--rubric);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.45em;
   }
 
   @media (max-width: 600px) {
-    .menu-toggle {
-      display: flex;
+    .header {
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2.5rem;
+      margin-bottom: 3rem;
+      gap: 1.6rem;
     }
 
     .nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      align-items: flex-start;
-      background: var(--bg);
-      padding: 1.5rem;
-      gap: 1.25rem;
-      border-bottom: 1px dashed var(--border);
-      z-index: 100;
-    }
-
-    .nav.open {
-      display: flex;
-      align-items: flex-start;
-    }
-
-    .header {
-      position: relative;
+      gap: 1.4rem;
     }
   }
 </style>

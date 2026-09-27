@@ -11,9 +11,9 @@ const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
 <Layout title="Publications - Hardik Bhatnagar">
   <Header />
   <main>
-    <h1 class="page-title">Publications</h1>
+    <h1 class="page-title rise">Publications</h1>
     {sortedPublications.length > 0 ? (
-      <div class="publications-list">
+      <div class="publications-list rise" style="--i: 1">
         {sortedPublications.map((pub) => (
           <PublicationItem
             title={pub.title}
@@ -30,6 +30,5 @@ const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
     ) : (
       <p class="empty-state">No publications yet.</p>
     )}
-    <div class="footer-spacer"></div>
   </main>
 </Layout>

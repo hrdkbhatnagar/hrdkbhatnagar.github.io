@@ -1,0 +1,19 @@
+---
+// Inlines a drawing from src/marks/<name>.svg so it inherits `color`.
+// Swap any of those files for your own drawing (keep the filename).
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+
+const svgs = import.meta.glob('../marks/*.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const svg = svgs[`../marks/${name}.svg`];
+if (!svg) throw new Error(`Missing mark: src/marks/${name}.svg`);
+
+// Marks define their own filter/mask ids; make them unique per use
+const uid = `${name}-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<span class:list={['mark', `mark-${name}`, className]} aria-hidden="true" set:html={svg.replaceAll('__uid__', uid)} />

@@ -66,7 +66,14 @@
   toggle?.addEventListener('click', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    const root = document.documentElement;
+    const apply = () => {
+      root.classList.add('theme-switching');
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    };
+    // Cross-fade the whole page at once, so paper, ink and prints change together
+    const done = document.startViewTransition ? document.startViewTransition(apply).finished : Promise.resolve(apply());
+    done.finally(() => root.classList.remove('theme-switching'));
   });
 </script>

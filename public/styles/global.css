@@ -7,12 +7,13 @@
   /* Paper & ink */
   --paper: #f3eee3;
   --paper-deep: #e8e1d2;
-  --ink: #1e2128;          /* blue-black, like iron-gall ink */
-  --ink-soft: #3a3c43;
-  --ink-faded: #787065;    /* faded ink / graphite */
-  --rubric: #a3402b;       /* the red of rubricated initials */
-  --rubric-soft: rgba(163, 64, 43, 0.35);
-  --hair: rgba(30, 33, 40, 0.22);
+  --ink: #23221f;          /* warm slate, like the riso prints' slate ink */
+  --ink-soft: #3d3c38;
+  --ink-faded: #6b675f;    /* graphite; still 4.5:1 on the paper */
+  --rubric: #a4502f;       /* clay, deep enough for small text */
+  --clay: #c15f3c;         /* brighter clay, for large marks like the drop cap */
+  --rubric-soft: rgba(164, 80, 47, 0.35);
+  --hair: rgba(35, 34, 31, 0.22);
   --photo-blend: multiply;
   --grain-opacity: 0.06;
 
@@ -27,7 +28,7 @@
   /* Motion */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-pen: cubic-bezier(0.55, 0.05, 0.35, 1);  /* a hand: quick start, eases off at the end */
+  --ease-pen: cubic-bezier(0.3, 0, 0.15, 1);  /* a hand: sets down, sweeps, eases off */
 }
 
 [data-theme="dark"] {
@@ -36,8 +37,9 @@
   --ink: #ebe4d6;
   --ink-soft: #c9c1b2;
   --ink-faded: #948b7c;
-  --rubric: #e0876f;
-  --rubric-soft: rgba(224, 135, 111, 0.4);
+  --rubric: #de9273;
+  --clay: #de9273;
+  --rubric-soft: rgba(222, 146, 115, 0.4);
   --hair: rgba(235, 228, 214, 0.18);
   --photo-blend: normal;
   --grain-opacity: 0.035;
@@ -72,7 +74,6 @@ body {
   background-color: var(--paper);
   background-image: radial-gradient(ellipse 120% 60% at 50% 0%, rgba(255, 255, 255, 0.28), transparent 70%);
   background-attachment: fixed;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 [data-theme="dark"] body {
@@ -94,7 +95,7 @@ body::before {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--gutter);
+  padding: 0 var(--gutter) 6rem;
 }
 
 /* Typography -------------------------------------------------------------- */
@@ -190,7 +191,6 @@ a:hover {
 }
 
 .section-link-arrow {
-  width: 1.6rem;
   transition: transform 200ms var(--ease-out);
 }
 
@@ -204,50 +204,58 @@ a:hover {
   }
 }
 
-/* Marks ------------------------------------------------------------------- */
-.mark {
-  display: inline-block;
+/* Riso prints (art/riso.html, baked by art/export.mjs) ---------------------
+   Each is baked at its exact CSS size; only solid line work (rules, underline)
+   is allowed to stretch with its container. In dark mode the inks invert and
+   keep their hue, so they print light on the dark page.                      */
+.riso {
+  display: block;
   line-height: 0;
 }
 
-.mark svg {
+.riso img {
   display: block;
+  max-width: none;
+}
+
+.riso-rule img,
+.riso-underline img,
+.riso-neuron-rule img,
+.riso-neuron-rule-short img {
   width: 100%;
   height: auto;
-  overflow: visible;
 }
 
-/* Pen marks are revealed through a mask that follows the stroke */
-.pen {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
+[data-theme="dark"] .riso img {
+  filter: invert(1) hue-rotate(180deg) brightness(1.05);
 }
 
-/* Motion: the entrance plays once per visit (see Layout.astro) ------------ */
+/* Motion: the entrance plays once per visit, and only for what is on screen
+   when the page opens (see Layout.astro). Everything else is simply there.  */
 .intro .rise {
-  animation: rise 560ms var(--ease-out) backwards;
-  animation-delay: calc(var(--i, 0) * 55ms + 60ms);
+  animation: rise 520ms var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(5px);
-    filter: blur(2px);
+    transform: translateY(6px);
   }
 }
 
-.intro .draw .pen {
-  stroke-dashoffset: 1;
+/* A pen stroke, revealed in the direction it was drawn */
+.intro .draw img {
+  clip-path: inset(0 100% 0 0);
 }
 
-.intro .draw.is-visible .pen {
+.intro .draw.is-visible img {
   animation: pen var(--pen-duration, 600ms) var(--ease-pen) var(--pen-delay, 0ms) backwards;
-  stroke-dashoffset: 0;
+  clip-path: inset(0 0 0 0);
 }
 
 @keyframes pen {
-  from { stroke-dashoffset: 1; }
+  from { clip-path: inset(0 100% 0 0); }
 }
 
 /* About ------------------------------------------------------------------- */
@@ -274,7 +282,7 @@ a:hover {
   font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
   line-height: 0.8;
   padding: 0.07em 0.08em 0 0;
-  color: var(--rubric);
+  color: var(--clay);
 }
 
 .elsewhere {
@@ -336,16 +344,20 @@ a:hover {
 
 .neuron-rule {
   width: 100%;
-  color: var(--ink-faded);
 }
 
 .neuron-rule--short {
   display: none;
 }
 
-/* First visit: the signal runs down the axon */
-.intro .neuron-rule svg {
-  animation: axon 1000ms var(--ease-in-out) 420ms backwards;
+/* First visit: the signal runs down the axon when the rule scrolls into view */
+.intro .neuron-rule img {
+  clip-path: inset(0 100% 0 0);
+}
+
+.intro .neuron-rule.is-visible img {
+  animation: axon 900ms var(--ease-in-out) 120ms backwards;
+  clip-path: inset(0 0 0 0);
 }
 
 @keyframes axon {
@@ -379,16 +391,10 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  color: var(--ink-faded);
-  opacity: 0.6;
-}
-
-.publication-rule svg {
-  height: 6px;
+  opacity: 0.55;
 }
 
 .publication-thumbnail {
-  align-self: start;
   padding: 5px;
   border: 1px solid var(--hair);
   background: color-mix(in srgb, var(--paper) 70%, white 30%);
@@ -398,7 +404,7 @@ a:hover {
   background: var(--paper-deep);
 }
 
-.publication-thumbnail img {
+.publication-thumbnail > img {
   display: block;
   width: 100%;
   aspect-ratio: 7 / 5;
@@ -408,19 +414,20 @@ a:hover {
   transition: filter 300ms ease;
 }
 
-[data-theme="dark"] .publication-thumbnail img {
+[data-theme="dark"] .publication-thumbnail > img {
   filter: grayscale(0.5) sepia(0.35) brightness(0.72) contrast(1.05);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .publication-item:hover .publication-thumbnail img {
+  .publication-item:hover .publication-thumbnail > img {
     filter: none;
   }
 
-  [data-theme="dark"] .publication-item:hover .publication-thumbnail img {
+  [data-theme="dark"] .publication-item:hover .publication-thumbnail > img {
     filter: brightness(0.9);
   }
 }
+
 
 .publication-thumbnail--empty {
   display: flex;
@@ -478,13 +485,26 @@ a:hover {
   gap: 0.25rem 1rem;
 }
 
+/* The venue is captioned under the figure, like the label on a print */
+.publication-aside {
+  align-self: start;
+}
+
 .publication-venue {
-  font-size: 0.76rem;
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.13em;
+  line-height: 1.45;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-variant-numeric: lining-nums;
   color: var(--ink-soft);
+}
+
+.publication-venue-note {
+  display: block;
+  color: var(--rubric);
 }
 
 .publication-links {
@@ -515,21 +535,6 @@ a:hover {
 
 .award-detail {
   color: var(--ink-faded);
-}
-
-/* A silk bookmark tucked under the top edge of the thumbnail's frame */
-.publication-thumbnail {
-  position: relative;
-}
-
-.award-ribbon {
-  position: absolute;
-  top: -2px;
-  left: 14px;
-  width: 14px;
-  color: var(--rubric);
-  filter: drop-shadow(0 1px 1px rgba(40, 20, 10, 0.25));
-  pointer-events: none;
 }
 
 /* Projects -------------------------------------------------------------- */
@@ -689,9 +694,10 @@ a:hover {
     gap: 0.25rem 0.75rem;
   }
 
-  .award-ribbon {
-    left: 9px;
-    width: 11px;
+  .publication-venue {
+    margin-top: 0.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
   }
 }
 
@@ -699,4 +705,17 @@ a:hover {
   .section-link-arrow {
     transition: none;
   }
+}
+
+/* Switching theme: one short cross-fade of the whole page (ThemeToggle.astro),
+   with every other transition held off so nothing changes on its own clock */
+.theme-switching,
+.theme-switching * {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+  animation-timing-function: ease;
 }

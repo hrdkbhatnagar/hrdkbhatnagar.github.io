@@ -1,6 +1,4 @@
 ---
-import Footer from '../components/Footer.astro';
-
 interface Props {
   title: string;
   description?: string;
@@ -43,11 +41,14 @@ const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen
   <body>
     <div class="container">
       <slot />
-      <Footer />
     </div>
     <script>
-      // During the entrance, marks below the fold draw when scrolled into view
+      // During the entrance, only what is on screen settles in; marks below the
+      // fold draw when scrolled into view
       if (document.documentElement.classList.contains('intro')) {
+        document.querySelectorAll('.rise').forEach((el) => {
+          if (el.getBoundingClientRect().top > innerHeight) el.style.animation = 'none';
+        });
         const io = new IntersectionObserver((entries) => {
           entries.forEach((e) => {
             if (e.isIntersecting) {

@@ -5,6 +5,7 @@
     "venue": "ICML 2026",
     "year": 2026,
     "thumbnail": "/images/publications/posttrainbench.jpg",
+    "figure": "fig-posttrainbench",
     "featured": true,
     "award": "Best Paper · ICLR 2026 RSI Workshop",
     "links": {
@@ -19,6 +20,7 @@
     "venue": "COLM 2025",
     "year": 2025,
     "thumbnail": "/images/publications/sober-reasoning.jpg",
+    "figure": "fig-sober-reasoning",
     "featured": true,
     "links": {
       "paper": "https://arxiv.org/abs/2504.07086",
@@ -32,6 +34,7 @@
     "venue": "NeurIPS 2025 (Oral)",
     "year": 2024,
     "thumbnail": "/images/publications/absorption.jpg",
+    "figure": "fig-absorption",
     "featured": true,
     "links": {
       "paper": "https://arxiv.org/abs/2409.14507",

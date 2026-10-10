@@ -1,8 +1,8 @@
-// Generates the placeholder "hand-drawn" SVGs in src/marks/.
-// These are stand-ins: replace any file in src/marks/ with your own drawing
-// (keep the filename, and use fill/stroke="currentColor" so it follows the theme).
-// To keep the draw-on animation, give the mark a <path class="pen" pathLength="1">
-// in a mask, as the pen marks below do.
+// Generates the hand-drawn geometry in src/marks/: the neuron rules, rule and
+// arrow. art/export.mjs reads these SVGs and prints them as risographs
+// (art/riso.html), so the site shows the riso PNGs, not the SVGs themselves.
+// Replace any file in src/marks/ with your own drawing (keep the filename) and
+// re-run art/export.mjs.
 //
 //   node scripts/generate-marks.mjs
 //
@@ -124,41 +124,7 @@ function somaBlob(cx, cy, r, { pyramidal = true } = {}) {
   return smooth(pts) + 'Z';
 }
 
-// --- 1. Pyramidal neuron "plate" (tailpiece) -------------------------------
-{
-  rng = mulberry32(1899);
-  const N = makeNeuron();
-  const cx = 160, cy = 300;
-
-  // apical dendrite with oblique branches, ending in a tuft
-  N.grow({
-    x: cx, y: cy - 12, angle: -Math.PI / 2 + 0.03, len: 210, w0: 6, w1: 1.6, depth: 2,
-    branchP: 0.09, spread: [0.6, 1.1], wander: 0.1, pull: 0.08, spineP: 0.35, maxChild: 70,
-    onEnd: (end, a) => {
-      for (let k = 0; k < 4; k++) {
-        N.grow({ x: end.x, y: end.y, angle: a + lerp(-0.9, 0.9, k / 3) + rand(-0.15, 0.15),
-                 len: rand(45, 75), w0: 1.5, depth: 2, branchP: 0.06, spineP: 0.4 });
-      }
-    },
-  });
-  // basal dendrites
-  const basal = [-2.6, -2.95, 2.5, 2.05, 1.2, 0.6, 0.25];
-  basal.forEach((ang) => {
-    const a = ang + rand(-0.1, 0.1);
-    N.grow({ x: cx + Math.cos(a) * 9, y: cy + Math.sin(a) * 7 + 4, angle: a, len: rand(60, 105),
-             w0: rand(2.2, 3.2), depth: 2, branchP: 0.07, spread: [0.35, 0.8], wander: 0.2, pull: 0.02, spineP: 0.3 });
-  });
-  // axon: thin, straight, a couple of collaterals, no spines
-  N.grow({
-    x: cx + 1, y: cy + 12, angle: Math.PI / 2 - 0.02, len: 185, w0: 1.4, w1: 0.6, depth: 1,
-    branchP: 0.025, spread: [1.1, 1.4], wander: 0.05, pull: 0.1, spineP: 0, bouton: true,
-  });
-
-  const soma = somaBlob(cx, cy, 13);
-  write('neuron.svg', neuronSvg({ viewBox: '0 0 320 520', ...N, soma }));
-}
-
-// --- 2. Neuron rule: a horizontal divider (long for desktop, short for phones)
+// --- 1. Neuron rule: a horizontal divider (long for desktop, short for phones)
 function neuronRule(file, width, seed) {
   rng = mulberry32(seed);
   const N = makeNeuron();
@@ -185,7 +151,7 @@ function neuronRule(file, width, seed) {
 neuronRule('neuron-rule.svg', 860, 7);
 neuronRule('neuron-rule-short.svg', 360, 7);
 
-// --- 3. Pen marks ----------------------------------------------------------
+// --- 2. Pen marks ----------------------------------------------------------
 // Each mark is a centreline plus a pressure curve: the nib lands, swells and
 // flicks off thinner, so the ink is a filled outline rather than an even
 // stroke. A displacement filter roughens the edge like ink on paper, and a
@@ -245,23 +211,6 @@ function penSvg({ file, width, height, strokes, roughness = 0.7, seed = 2, attrs
 </svg>`);
 }
 
-// underline: one quick stroke that sags a touch and flicks up as the pen lifts
-{
-  rng = mulberry32(21);
-  const wob = tremor(0.3);
-  penSvg({
-    file: 'underline.svg', width: 300, height: 22, seed: 4,
-    strokes: [inkStroke({
-      nib: 2.7,
-      centre: (t) => [
-        6 + 286 * t - 1.2 * (1 - smoothstep(0, 0.04, t)),
-        11.5 + 1.8 * Math.sin(Math.PI * t) - 1.3 * (1 - smoothstep(0, 0.04, t)) - 4.2 * Math.pow(smoothstep(0.82, 1, t), 1.6) + wob(t),
-      ],
-      pressure: (t) => (0.55 + 0.45 * smoothstep(0, 0.1, t)) * (1 - 0.9 * smoothstep(0.6, 1, t)),
-    })],
-  });
-}
-
 // arrow: a shaft, then the head in one quick stroke
 {
   rng = mulberry32(3);
@@ -305,49 +254,3 @@ function penSvg({ file, width, height, strokes, roughness = 0.7, seed = 2, attrs
   });
 }
 
-// --- 4. Award ribbon ---------------------------------------------------------
-
-// ribbon: a silk bookmark with a forked tail, in a watercolour wash
-{
-  rng = mulberry32(19);
-  const wob = tremor(0.25, [0.9, 2.3]);
-  const left = [], right = [];
-  for (let i = 0; i <= 12; i++) {
-    const y = (i / 12) * 38.5, sway = 0.7 * Math.sin((i / 12) * Math.PI * 0.9) + wob(i / 12);
-    left.push([2 + sway, y]);
-    right.push([14 + sway * 0.8, y]);
-  }
-  const lb = left[left.length - 1], rb = right[right.length - 1];
-  const outline = smooth(left) + `L${f(lb[0] - 0.4)} ${f(45)}L${f(8.6)} ${f(38.6)}L${f(rb[0] + 0.3)} ${f(44.4)}` +
-    `L${right.slice().reverse().map(([x, y]) => `${f(x)} ${f(y)}`).join('L')}Z`;
-  write('ribbon.svg', `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 46">
-  <defs>
-    <filter id="wash-__uid__" x="-20%" y="-10%" width="140%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="3" seed="4" result="grain"/>
-      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.55 1.18" result="pigment"/>
-      <feComposite in="SourceGraphic" in2="pigment" operator="in" result="wash"/>
-      <feDisplacementMap in="wash" in2="grain" scale="0.6" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-    <linearGradient id="shade-__uid__" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#000" stop-opacity="0.28"/>
-      <stop offset="0.12" stop-color="#000" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <g filter="url(#wash-__uid__)">
-    <path d="${outline}" fill="currentColor"/>
-    <path d="${outline}" fill="url(#shade-__uid__)"/>
-    <path d="${outline}" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/>
-  </g>
-</svg>`);
-}
-
-// --- 5. Favicon: a tiny neuron in rubric red ------------------------------
-writeFileSync(new URL('../public/favicon.svg', import.meta.url), `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="#a8412c" stroke-linecap="round">
-  <path d="M16 18.5L16 3.5M16 9.5L11.5 5M16 7L20 3.5" stroke-width="2"/>
-  <path d="M14 21L6.5 27M18 21L25.5 26.5M16 21.5L16.5 30M9.5 24.5L6 22.5M22 23.5L25 21" stroke-width="1.8"/>
-  <path d="M16 12.5C18.4 15.5 20.4 18.6 19.6 20.6C18.6 22.2 13.4 22.2 12.4 20.6C11.6 18.6 13.6 15.5 16 12.5Z" fill="#a8412c" stroke="none"/>
-</svg>
-`.trim() + '\n');
-console.log('wrote public/favicon.svg');

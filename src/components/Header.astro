@@ -1,6 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-import Mark from './Mark.astro';
+import Riso from './Riso.astro';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
@@ -13,7 +13,7 @@ const navLinks = [
 <header class="header rise" style="--i: 0">
   <a href="/" class="logo">
     Hardik Bhatnagar
-    <Mark name="underline" class="logo-underline draw on-view" />
+    <Riso name="underline" class="logo-underline draw on-view" />
   </a>
 
   <nav class="nav">
@@ -61,9 +61,8 @@ const navLinks = [
     left: -2%;
     bottom: -0.62em;
     width: 104%;
-    color: var(--rubric);
-    --pen-delay: 380ms;
-    --pen-duration: 520ms;
+    --pen-delay: 200ms;
+    --pen-duration: 440ms;
   }
 
   .nav {

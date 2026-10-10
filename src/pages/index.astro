@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import PublicationItem from '../components/PublicationItem.astro';
-import Mark from '../components/Mark.astro';
+import Riso from '../components/Riso.astro';
 import publications from '../data/publications.json';
 
 // Filter featured and sort by year (newest first)
@@ -12,7 +12,6 @@ const featuredPublications = publications
 
 const elsewhere = [
   { label: 'Email', href: 'mailto:hrdk.bhatnagar@gmail.com' },
-  { label: 'CV', href: 'https://drive.google.com/file/d/1I2uVx_3ZGI-0-7i8hf7oz3bHK8Jf35Qe/view?usp=sharing' },
   { label: 'GitHub', href: 'https://github.com/hrdkbhatnagar' },
   { label: 'Scholar', href: 'https://scholar.google.com/citations?user=8yj0bswAAAAJ' },
   { label: 'Twitter', href: 'https://x.com/hrdkbhatnagar' },
@@ -53,8 +52,8 @@ const elsewhere = [
     </section>
 
     <div class="section-break rise" style="--i: 4" aria-hidden="true">
-      <Mark name="neuron-rule" class="neuron-rule neuron-rule--long" />
-      <Mark name="neuron-rule-short" class="neuron-rule neuron-rule--short" />
+      <Riso name="neuron-rule" class="neuron-rule neuron-rule--long on-view" />
+      <Riso name="neuron-rule-short" class="neuron-rule neuron-rule--short on-view" />
     </div>
 
     <section class="rise" style="--i: 5">
@@ -62,7 +61,7 @@ const elsewhere = [
         <h2 class="section-title">Selected publications</h2>
         <a href="/publications" class="section-link">
           All publications
-          <Mark name="arrow" class="section-link-arrow" />
+          <Riso name="arrow" class="section-link-arrow" />
         </a>
       </div>
       {featuredPublications.length > 0 ? (
@@ -75,6 +74,7 @@ const elsewhere = [
               year={pub.year}
               month={pub.month}
               thumbnail={pub.thumbnail}
+              figure={pub.figure}
               award={pub.award}
               links={pub.links}
             />

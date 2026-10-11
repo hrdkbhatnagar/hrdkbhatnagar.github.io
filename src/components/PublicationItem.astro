@@ -1,4 +1,6 @@
 ---
+import Riso from './Riso.astro';
+
 interface Props {
   title: string;
   authors: string[];
@@ -6,6 +8,7 @@ interface Props {
   year: number;
   month?: string;
   thumbnail?: string;
+  figure?: string;
   award?: string;
   links?: {
     paper?: string;
@@ -15,9 +18,16 @@ interface Props {
   };
 }
 
-const { title, authors, venue, year, month, thumbnail, award, links } = Astro.props;
+const { title, authors, venue, year, month, thumbnail, figure, award, links } = Astro.props;
 
-const venues = Array.isArray(venue) ? venue : [venue];
+// "NeurIPS 2025 (Oral)" -> "NeurIPS 2025", with "Oral" as a note on its own line
+const venues = (Array.isArray(venue) ? venue : [venue]).map((v) => {
+  const m = v.match(/^(.*?)\s*\((.*)\)$/);
+  return m ? { name: m[1], note: m[2] } : { name: v, note: undefined };
+});
+
+// "Best Paper · ICLR 2026 RSI Workshop" -> name in red, where it was given in ink
+const [awardName, ...awardDetail] = award ? award.split(' · ') : [];
 
 // Highlight "Hardik Bhatnagar" in authors
 const highlightedAuthors = authors.map(author => {
@@ -39,11 +49,25 @@ if (links?.website) linkItems.push({ label: 'Website', url: links.website });
 ---
 
 <article class="publication-item">
-  {thumbnail ? (
-    <img src={thumbnail} alt={`Thumbnail for ${title}`} class="publication-thumbnail" loading="lazy" />
-  ) : (
-    <div class="publication-thumbnail"></div>
-  )}
+  <Riso name="rule" class="publication-rule" />
+  <div class="publication-aside">
+    {figure ? (
+      <div class="publication-thumbnail publication-thumbnail--figure">
+        <Riso name={figure as any} alt={`Key figure from ${title}, redrawn`} />
+      </div>
+    ) : thumbnail ? (
+      <div class="publication-thumbnail">
+        <img src={thumbnail} alt={`Thumbnail for ${title}`} loading="lazy" />
+      </div>
+    ) : (
+      <div class="publication-thumbnail publication-thumbnail--empty" aria-hidden="true">
+        <span>{year}</span>
+      </div>
+    )}
+    {venues.map((v) => (
+      <p class="publication-venue">{v.name}{v.note && <span class="publication-venue-note">{v.note}</span>}</p>
+    ))}
+  </div>
   <div class="publication-content">
     <h3>
       {titleLink ? (
@@ -54,26 +78,19 @@ if (links?.website) linkItems.push({ label: 'Website', url: links.website });
     </h3>
     <p class="publication-authors" set:html={highlightedAuthors} />
     <div class="publication-meta">
-      {venues.map((v) => (
-        <span class="publication-venue">{v}</span>
-      ))}
-      {award && (
-        <span class="publication-award">
-          <span class="award-mark" aria-hidden="true">★</span>
-          {award}
+      {linkItems.length > 0 && (
+        <span class="publication-links">
+          {linkItems.map((item) => (
+            <a href={item.url} class={`publication-link publication-link--${item.label.toLowerCase()}`} target="_blank" rel="noopener">{item.label}</a>
+          ))}
         </span>
       )}
-      {linkItems.length > 0 && (
-        <>
-          <span class="meta-separator">·</span>
-          {linkItems.map((item, i) => (
-            <>
-              {i > 0 && <span class="meta-separator">·</span>}
-              <a href={item.url} class="publication-link" target="_blank" rel="noopener">{item.label}</a>
-            </>
-          ))}
-        </>
-      )}
     </div>
+    {award && (
+      <p class="publication-award">
+        <span class="award-name">{awardName}</span>
+        {awardDetail.length > 0 && <span class="award-detail">· {awardDetail.join(' · ')}</span>}
+      </p>
+    )}
   </div>
 </article>

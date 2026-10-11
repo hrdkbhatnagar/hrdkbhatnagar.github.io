@@ -26,3 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 
 *.psd
+# Local clone of the riso kit used to render art/ (not part of the site)
+riso-windowseat/

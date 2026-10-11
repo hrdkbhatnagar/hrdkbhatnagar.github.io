@@ -6,22 +6,26 @@ import publications from '../data/publications.json';
 
 // Sort publications by year (newest first)
 const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
+const hasEqual = sortedPublications.some((p) => p.authors.some((a) => a.endsWith('*')));
 ---
 
 <Layout title="Publications - Hardik Bhatnagar">
   <Header />
   <main>
-    <h1 class="page-title">Publications</h1>
+    <div class="page-heading rise">
+      <h1 class="page-title">Publications</h1>
+      {hasEqual && <p class="equal-note"><span>*</span> Equal contribution</p>}
+    </div>
     {sortedPublications.length > 0 ? (
-      <div class="publications-list">
+      <div class="publications-list rise" style="--i: 1">
         {sortedPublications.map((pub) => (
           <PublicationItem
             title={pub.title}
             authors={pub.authors}
             venue={pub.venue}
             year={pub.year}
-            month={pub.month}
             thumbnail={pub.thumbnail}
+            figure={pub.figure}
             award={pub.award}
             links={pub.links}
           />
@@ -30,6 +34,5 @@ const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
     ) : (
       <p class="empty-state">No publications yet.</p>
     )}
-    <div class="footer-spacer"></div>
   </main>
 </Layout>

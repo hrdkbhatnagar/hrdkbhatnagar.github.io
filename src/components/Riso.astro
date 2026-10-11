@@ -1,0 +1,25 @@
+---
+// A risograph print from art/riso.html, baked by art/export.mjs at its exact CSS size
+// for 1x, 2x and 3x screens (a halftone must never be resized), with a separate
+// bake for narrow screens where the layout changes its size.
+import sizes from '../data/riso.json';
+
+interface Props {
+  name: keyof typeof sizes;
+  class?: string;
+  alt?: string;
+}
+
+const { name, class: className, alt = '' } = Astro.props;
+const asset = sizes[name] as Record<string, [number, number]>;
+const main = asset.desktop ? 'desktop' : 'mobile';
+const [w, h] = asset[main];
+const srcset = (size: string) => [1, 2, 3].map((d) => `/images/riso/${name}-${size}@${d}x.png ${d}x`).join(', ');
+---
+
+<picture class:list={['riso', `riso-${name}`, className]}>
+  {asset.desktop && asset.mobile && (
+    <source media="(max-width: 600px)" srcset={srcset('mobile')} width={asset.mobile[0]} height={asset.mobile[1]} />
+  )}
+  <img src={`/images/riso/${name}-${main}@2x.png`} srcset={srcset(main)} width={w} height={h} alt={alt} loading="lazy" decoding="async" />
+</picture>

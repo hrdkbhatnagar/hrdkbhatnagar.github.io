@@ -25,10 +25,6 @@ const { title, description, date, institution, tags, link } = Astro.props;
   <p class="project-institution">{institution}</p>
   <p class="project-description">{description}</p>
   {tags && tags.length > 0 && (
-    <div class="project-tags">
-      {tags.map(tag => (
-        <span class="project-tag">{tag}</span>
-      ))}
-    </div>
+    <p class="project-tags">{tags.join(' · ')}</p>
   )}
 </article>

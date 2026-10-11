@@ -9,6 +9,7 @@ import publications from '../data/publications.json';
 const featuredPublications = publications
   .filter((pub: any) => pub.featured)
   .sort((a: any, b: any) => b.year - a.year);
+const hasEqual = featuredPublications.some((p: any) => p.authors.some((a: string) => a.endsWith('*')));
 
 const elsewhere = [
   { label: 'Email', href: 'mailto:hrdk.bhatnagar@gmail.com' },
@@ -25,16 +26,16 @@ const elsewhere = [
       <div class="about-content">
         <div class="bio rise" style="--i: 1">
           <p>
-            <span class="initial">I</span>’m a PhD at the Tübingen AI Center, advised by <a href="https://scholar.google.de/citations?user=0z0fNxUAAAAJ&hl=en" target="_blank" rel="noopener">Matthias Bethge</a> and <a href="https://www.andriushchenko.me/" target="_blank" rel="noopener">Maksym Andriushchenko</a>. I work on understanding LLM capabilities and failure modes, with a focus on long-horizon evaluation and safety.
+            I’m a PhD at the Tübingen AI Center, advised by <a href="https://scholar.google.de/citations?user=0z0fNxUAAAAJ&hl=en" target="_blank" rel="noopener">Matthias Bethge</a> and <a href="https://www.andriushchenko.me/" target="_blank" rel="noopener">Maksym Andriushchenko</a>. I work on understanding LLM capabilities and failure modes, with a focus on long horizon evaluation and safety.
           </p>
           <p>
-            My research asks: how do we rigorously measure what LLMs can and can’t do—especially in extended autonomous settings. I am working on <a href="https://posttrainbench.com" target="_blank" rel="noopener">PostTrainBench</a>, a benchmark measuring whether CLI agents can autonomously post-train LLMs, and led the Sober Look at Reasoning project showing that many claimed reasoning improvements are within noise margins. At <a href="https://www.arena.education/" target="_blank" rel="noopener">ARENA 6.0</a>, I built a long-horizon agent benchmark.
+            My research asks how we can rigorously measure what LLMs can and can’t do, especially in extended autonomous settings. I am working on <a href="https://posttrainbench.com" target="_blank" rel="noopener">PostTrainBench</a>, a benchmark measuring whether CLI agents can autonomously post-train LLMs. Most recently, at <a href="https://www.matsprogram.org/" target="_blank" rel="noopener">MATS</a> with Mary Phuong (Google DeepMind), I trained model organisms for sandbagging: models that deliberately underperform on evaluations. Before that, at <a href="https://www.arena.education/" target="_blank" rel="noopener">ARENA 6.0</a> I built a long horizon agent benchmark.
           </p>
           <p>
             I also worked on mechanistic interpretability. At <a href="https://www.lasrlabs.org/" target="_blank" rel="noopener">LASR Labs</a> with <a href="https://x.com/jbloomaus" target="_blank" rel="noopener">Joseph Bloom</a> (UK AISI), we discovered “feature absorption”—a systematic failure mode in Sparse Autoencoders. At Microsoft Research with <a href="https://scholar.google.com/citations?hl=en&user=w8WJCnkAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener">Navin Goyal</a>, I studied how harmful concepts transform during post-training.
           </p>
           <p>
-            Previously, I worked in computational neuroscience at the Max Planck Institute for Biological Cybernetics and EPFL, modeling how visual features map onto neural activity. I hold a dual degree in Computer Science and Biological Sciences from BITS Pilani.
+            A long time ago, I worked in computational neuroscience at the Max Planck Institute for Biological Cybernetics and EPFL, modeling how visual features map onto neural activity. I hold a dual degree in Computer Science and Biological Sciences from BITS Pilani.
           </p>
         </div>
         <nav class="elsewhere rise" style="--i: 3" aria-label="Elsewhere">
@@ -58,7 +59,10 @@ const elsewhere = [
 
     <section class="rise" style="--i: 5">
       <div class="section-header">
-        <h2 class="section-title">Selected publications</h2>
+        <div>
+          <h2 class="section-title">Selected publications</h2>
+          {hasEqual && <p class="equal-note"><span>*</span> Equal contribution</p>}
+        </div>
         {/* Every paper is listed here for now; bring back the link once /publications has more
         <a href="/publications" class="section-link">
           All publications
@@ -74,7 +78,6 @@ const elsewhere = [
               authors={pub.authors}
               venue={pub.venue}
               year={pub.year}
-              month={pub.month}
               thumbnail={pub.thumbnail}
               figure={pub.figure}
               award={pub.award}

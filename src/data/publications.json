@@ -42,16 +42,5 @@
       "blog": "https://www.lesswrong.com/posts/3zBsxeZzd3cvuueMJ/paper-a-is-for-absorption-studying-feature-splitting-and",
       "website": "https://feature-absorption.streamlit.app/"
     }
-  },
-  {
-    "title": "Shared neural activity patterns between facial expression and shape recognition",
-    "authors": ["Avisha", "A. Singh", "Hardik Bhatnagar", "A. Dipani", "A. Bhattacharjee", "N. Seethapathi"],
-    "venue": "Neuromatch Conference",
-    "year": 2020,
-    "month": "October",
-    "featured": false,
-    "links": {
-      "paper": "https://conference.neuromatch.io/abstract?edition=2020-3&submission_id=recuX3Ev12RWz5m7j"
-    }
   }
 ]

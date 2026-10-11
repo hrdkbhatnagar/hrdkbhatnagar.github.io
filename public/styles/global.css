@@ -11,7 +11,6 @@
   --ink-soft: #3d3c38;
   --ink-faded: #6b675f;    /* graphite; still 4.5:1 on the paper */
   --rubric: #a4502f;       /* clay, deep enough for small text */
-  --clay: #c15f3c;         /* brighter clay, for large marks like the drop cap */
   --rubric-soft: rgba(164, 80, 47, 0.35);
   --hair: rgba(35, 34, 31, 0.22);
   --photo-blend: multiply;
@@ -38,7 +37,6 @@
   --ink-soft: #c9c1b2;
   --ink-faded: #948b7c;
   --rubric: #de9273;
-  --clay: #de9273;
   --rubric-soft: rgba(222, 146, 115, 0.4);
   --hair: rgba(235, 228, 214, 0.18);
   --photo-blend: normal;
@@ -273,18 +271,6 @@ a:hover {
   hanging-punctuation: first;
 }
 
-/* Rubricated initial */
-.bio .initial {
-  float: left;
-  font-family: var(--font-display);
-  font-size: 4.1em;
-  font-weight: 400;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
-  line-height: 0.8;
-  padding: 0.07em 0.08em 0 0;
-  color: var(--clay);
-}
-
 .elsewhere {
   display: flex;
   flex-wrap: wrap;
@@ -323,15 +309,6 @@ a:hover {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  filter: grayscale(1) sepia(0.3) contrast(1.04) brightness(1.03);
-  mix-blend-mode: var(--photo-blend);
-  transition: filter 400ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .portrait:hover img {
-    filter: grayscale(0.15) sepia(0.12) contrast(1.02);
-  }
 }
 
 
@@ -548,6 +525,27 @@ a:hover {
 
 .award-detail {
   color: var(--ink-faded);
+}
+
+/* The key to the asterisks on author names, set under the list's title */
+.page-heading {
+  margin-bottom: 3rem;
+}
+
+.page-heading .page-title {
+  margin-bottom: 0;
+}
+
+.equal-note {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-faded);
+}
+
+.equal-note span {
+  font-style: normal;
+  margin-right: 0.15em;
 }
 
 /* Projects -------------------------------------------------------------- */

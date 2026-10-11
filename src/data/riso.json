@@ -43,7 +43,25 @@
   },
   "underline": {
     "desktop": [
-      300,
+      132,
+      22
+    ]
+  },
+  "underline-t1": {
+    "desktop": [
+      132,
+      22
+    ]
+  },
+  "underline-t2": {
+    "desktop": [
+      132,
+      22
+    ]
+  },
+  "underline-t3": {
+    "desktop": [
+      132,
       22
     ]
   },

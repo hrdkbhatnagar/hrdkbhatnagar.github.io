@@ -13,7 +13,9 @@ const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,15 +28,9 @@ const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen
         const root = document.documentElement;
         const theme = localStorage.getItem('theme') || 'light';
         root.setAttribute('data-theme', theme);
-        // Play the entrance (text settling, pen marks drawing) once per visit;
-        // later pages in the same visit appear instantly.
-        try {
-          const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (!reduce && !sessionStorage.getItem('intro-seen')) {
-            root.classList.add('intro');
-            sessionStorage.setItem('intro-seen', '1');
-          }
-        } catch (e) {}
+        // Play the entrance (text settling, the stroke under the name inking up)
+        // on every page load, unless the visitor prefers reduced motion.
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('intro');
       })();
     </script>
   </head>
@@ -43,21 +39,11 @@ const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen
       <slot />
     </div>
     <script>
-      // During the entrance, only what is on screen settles in; marks below the
-      // fold draw when scrolled into view
+      // During the entrance, only what is on screen when the page opens settles in
       if (document.documentElement.classList.contains('intro')) {
         document.querySelectorAll('.rise').forEach((el) => {
           if (el.getBoundingClientRect().top > innerHeight) el.style.animation = 'none';
         });
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('is-visible');
-              io.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.6 });
-        document.querySelectorAll('.on-view').forEach((el) => io.observe(el));
       }
     </script>
   </body>

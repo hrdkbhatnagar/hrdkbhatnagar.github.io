@@ -14,7 +14,12 @@ const navLinks = [
 <header class="header rise" style="--i: 0">
   <a href="/" class="logo">
     Hardik Bhatnagar
-    <Riso name="underline" class="logo-underline draw on-view" />
+    <span class="logo-underline ink-up" aria-hidden="true">
+      <Riso name="underline-t1" class="ink-tone ink-tone1" />
+      <Riso name="underline-t2" class="ink-tone ink-tone2" />
+      <Riso name="underline-t3" class="ink-tone ink-tone3" />
+      <Riso name="underline" class="ink-solid" />
+    </span>
   </a>
 
   <nav class="nav">
@@ -57,13 +62,12 @@ const navLinks = [
     color: var(--ink);
   }
 
+  /* the stroke runs under "Hardik": 132 of the name's 41.6 px, so it scales with it */
   .logo :global(.logo-underline) {
     position: absolute;
-    left: -2%;
+    left: -0.06em;
     bottom: -0.62em;
-    width: 104%;
-    --pen-delay: 200ms;
-    --pen-duration: 440ms;
+    width: 3.17em;
   }
 
   .nav {

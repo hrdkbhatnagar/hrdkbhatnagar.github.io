@@ -27,7 +27,6 @@
   /* Motion */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-pen: cubic-bezier(0.3, 0, 0.15, 1);  /* a hand: sets down, sweeps, eases off */
 }
 
 [data-theme="dark"] {
@@ -218,6 +217,9 @@ a:hover {
 
 .riso-rule img,
 .riso-underline img,
+.riso-underline-t1 img,
+.riso-underline-t2 img,
+.riso-underline-t3 img,
 .riso-neuron-rule img,
 .riso-neuron-rule-short img {
   width: 100%;
@@ -228,7 +230,7 @@ a:hover {
   filter: invert(1) hue-rotate(180deg) brightness(1.05);
 }
 
-/* Motion: the entrance plays once per visit, and only for what is on screen
+/* Motion: the entrance plays on every page load, and only for what is on screen
    when the page opens (see Layout.astro). Everything else is simply there.  */
 .intro .rise {
   animation: rise 520ms var(--ease-out) backwards;
@@ -242,19 +244,27 @@ a:hover {
   }
 }
 
-/* A pen stroke, revealed in the direction it was drawn */
-.intro .draw img {
-  clip-path: inset(0 100% 0 0);
+/* Inking up: the stroke under the name prints first as a sparse halftone and
+   fills in to solid ink in three steps, like a print taking ink pass by pass.
+   Four stacked prints of the same stroke, each shown in turn.              */
+.ink-up .ink-tone {
+  position: absolute;
+  inset: 0;
 }
 
-.intro .draw.is-visible img {
-  animation: pen var(--pen-duration, 600ms) var(--ease-pen) var(--pen-delay, 0ms) backwards;
-  clip-path: inset(0 0 0 0);
+.ink-up .ink-tone img {
+  opacity: 0;
 }
 
-@keyframes pen {
-  from { clip-path: inset(0 100% 0 0); }
-}
+.intro .ink-up .ink-tone1 img { animation: ink-tone1 640ms linear 260ms both; }
+.intro .ink-up .ink-tone2 img { animation: ink-tone2 640ms linear 260ms both; }
+.intro .ink-up .ink-tone3 img { animation: ink-tone3 640ms linear 260ms both; }
+.intro .ink-up .ink-solid img { animation: ink-solid 640ms linear 260ms both; }
+
+@keyframes ink-tone1 { 0% { opacity: 0; } 6%, 26% { opacity: 1; } 34%, 100% { opacity: 0; } }
+@keyframes ink-tone2 { 0%, 26% { opacity: 0; } 34%, 52% { opacity: 1; } 60%, 100% { opacity: 0; } }
+@keyframes ink-tone3 { 0%, 52% { opacity: 0; } 60%, 76% { opacity: 1; } 84%, 100% { opacity: 0; } }
+@keyframes ink-solid { 0%, 76% { opacity: 0; } 84%, 100% { opacity: 1; } }
 
 /* About ------------------------------------------------------------------- */
 .about-section {
@@ -325,20 +335,6 @@ a:hover {
 
 .neuron-rule--short {
   display: none;
-}
-
-/* First visit: the signal runs down the axon when the rule scrolls into view */
-.intro .neuron-rule img {
-  clip-path: inset(0 100% 0 0);
-}
-
-.intro .neuron-rule.is-visible img {
-  animation: axon 900ms var(--ease-in-out) 120ms backwards;
-  clip-path: inset(0 0 0 0);
-}
-
-@keyframes axon {
-  from { clip-path: inset(0 100% 0 0); }
 }
 
 /* Publications ---------------------------------------------------------- */
@@ -666,7 +662,7 @@ a:hover {
   }
 
   .neuron-rule--short {
-    display: inline-block;
+    display: block;
   }
 
   .section-header {

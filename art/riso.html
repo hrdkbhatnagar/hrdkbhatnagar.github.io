@@ -1070,15 +1070,25 @@ const ASSETS = {
     },
   },
 
-  // Under the name: a quick brush stroke under its start only, lifting as it ends
+  // Under the name: a quick brush stroke under its start only, lifting as it ends.
+  // Cropped to the stroke, so a reveal spends its whole duration drawing ink.
   'underline': {
-    w: 300, h: 22, sizes: { desktop: [300, 22] }, inks: ['clay'],
+    w: 132, h: 22, sizes: { desktop: [132, 22] }, inks: ['clay'],
     draw(g, ink, rng, sr, pass) {
       if (pass !== 'mass') return;
       const c = curve([[4, 13.5], [40, 12.2], [86, 11.6], [128, 9.4]], false, 16);
       g.fill(nib(c, (u) => 2.4 * (0.55 + 0.45 * Math.min(1, u * 6)) * (1 - 0.92 * Math.pow(u, 2.2)), { raw: true }));
     },
   },
+  // The same stroke as a halftone at rising coverage: the name's stroke inks up through these
+  ...Object.fromEntries([0.22, 0.45, 0.7].map((tone, i) => [`underline-t${i + 1}`, {
+    w: 132, h: 22, sizes: { desktop: [132, 22] }, inks: ['clay'],
+    draw(g, ink, rng, sr, pass) {
+      if (pass !== 'tone') return;
+      const c = curve([[4, 13.5], [40, 12.2], [86, 11.6], [128, 9.4]], false, 16);
+      print(g, nib(c, (u) => 2.4 * (0.55 + 0.45 * Math.min(1, u * 6)) * (1 - 0.92 * Math.pow(u, 2.2)), { raw: true }), tone);
+    },
+  }])),
   'rule': {
     w: 860, h: 6, sizes: { desktop: [812, 6] }, inks: ['slate'],
     draw(g, ink, rng, sr, pass) { if (pass === 'line') fill(g, 'rule'); },

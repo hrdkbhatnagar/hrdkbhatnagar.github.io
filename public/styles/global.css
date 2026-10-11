@@ -507,22 +507,35 @@ a:hover {
   color: var(--rubric);
 }
 
+/* Links as small tags in the deeper paper tone, lettered like the venue caption */
 .publication-links {
-  font-style: italic;
-  font-size: 0.98rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding-top: 0.1rem;
 }
 
-.meta-separator {
-  color: var(--ink-faded);
-  margin: 0 0.4em;
+.publication-link {
+  padding: 0.3rem 0.8rem 0.26rem;
+  border-radius: 3px;
+  background: var(--paper-deep);
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+[data-theme="dark"] .publication-link {
+  background: color-mix(in srgb, var(--paper-deep) 70%, white 6%);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .publication-link:hover {
+    background: color-mix(in srgb, var(--rubric) 14%, var(--paper));
     color: var(--ink);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
   }
 }
 
@@ -692,6 +705,21 @@ a:hover {
 
   .publication-meta {
     gap: 0.25rem 0.75rem;
+  }
+
+  .publication-links {
+    gap: 0.35rem;
+  }
+
+  .publication-link {
+    padding: 0.26rem 0.55rem 0.22rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  /* Keep a phone to one row of tags; the blog link shows on wider screens */
+  .publication-link--blog {
+    display: none;
   }
 
   .publication-venue {

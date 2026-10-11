@@ -80,11 +80,8 @@ if (links?.website) linkItems.push({ label: 'Website', url: links.website });
     <div class="publication-meta">
       {linkItems.length > 0 && (
         <span class="publication-links">
-          {linkItems.map((item, i) => (
-            <>
-              {i > 0 && <span class="meta-separator">·</span>}
-              <a href={item.url} class="publication-link" target="_blank" rel="noopener">{item.label}</a>
-            </>
+          {linkItems.map((item) => (
+            <a href={item.url} class={`publication-link publication-link--${item.label.toLowerCase()}`} target="_blank" rel="noopener">{item.label}</a>
           ))}
         </span>
       )}

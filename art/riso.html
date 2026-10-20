@@ -1046,6 +1046,31 @@ const ASSETS = {
     },
   }),
 
+  // Sandbagging: Figure 1's scatter. Prior model organisms (slate) trade robustness for retention;
+  // training lifts the base model (pale) straight up to the top (clay)
+  'fig-sandbagging': Object.assign({}, FIG, {
+    draw(g, ink, rng, sr, pass) {
+      const xAt = (ret) => 26 + (ret / 85) * 232, yAt = (rob) => BASE - ((rob - 40) / 62) * H;
+      const prior = [[8, 84.5], [21.5, 65], [49.5, 60.5], [55, 58.5], [76, 68], [64.5, 73], [61, 81]];
+      const base = [71, 47], ours = [71, 96];
+      const dot = (p, r) => cut(ringPts(xAt(p[0]), yAt(p[1]), r, r, 9), sr, { amp: 0.4 });
+      const others = new Path2D();
+      prior.forEach((p) => others.addPath(dot(p, 7.6)));
+      const bx = xAt(base[0]), by = yAt(base[1]);
+      const baseMark = slab(bx - 9, by - 9, bx + 9, by + 9, sr, 0.5);
+      const ox = xAt(ours[0]), oy = yAt(ours[1]);
+      const oursMark = cut([[ox - 13, oy - 8], [ox - 13, oy - 8], [ox + 13, oy - 8], [ox + 13, oy - 8], [ox, oy + 12], [ox, oy + 12]], sr, { amp: 0.4, per: 6 });
+      const lift = new Path2D();
+      for (let y = by - 12; y > oy + 15; y -= 11) lift.addPath(pulled([[bx, y], [bx - 0.3, Math.max(oy + 15, y - 6.5)]], 1.5, sr));
+      const axis = axisPath(sr);
+      if (ink === 'slate' && pass === 'tone') print(g, baseMark, 0.3);
+      if (ink === 'slate' && pass === 'mass') g.fill(others);
+      if (ink === 'slate' && pass === 'line') g.fill(axis);
+      if (ink === 'clay' && pass === 'mass') g.fill(oursMark);
+      if (ink === 'clay' && pass === 'line') g.fill(lift);
+    },
+  }),
+
   /* — marks ——————————————————————————————————————————————————————————————— */
 
   // The divider: one neuron, its axon run across the page

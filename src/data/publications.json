@@ -1,6 +1,18 @@
 [
   {
-    "title": "PostTrainBench: Measuring AI Ability to Perform LLM Post-Training",
+    "title": "Towards Robust Model Organisms for Eliciting Latent Knowledge",
+    "authors": ["Lennart Finke*", "Hardik Bhatnagar*", "Euodia Dodd*", "Francis Rhys Ward", "Yves-Alexandre de Montjoye", "Matthias Bethge", "Mary Phuong"],
+    "venue": "Preprint",
+    "year": 2026,
+    "figure": "fig-sandbagging",
+    "featured": true,
+    "links": {
+      "paper": "https://arxiv.org/abs/2610.26698",
+      "code": "https://github.com/sandbaggers/sandbaggers"
+    }
+  },
+  {
+    "title": "PostTrainBench: Can LLM Agents Automate LLM Post-Training?",
     "authors": ["Ben Rank*", "Hardik Bhatnagar*", "Matthias Bethge", "Maksym Andriushchenko"],
     "venue": "ICML 2026",
     "year": 2026,

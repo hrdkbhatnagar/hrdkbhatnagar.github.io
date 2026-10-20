@@ -129,8 +129,9 @@ a:hover {
   transition: color 150ms ease, text-decoration-color 150ms ease;
 }
 
+/* The small capitals sit high, so their hairline hangs a little lower */
 .elsewhere a {
-  text-decoration-color: transparent;
+  text-underline-offset: 0.4em;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -305,10 +306,6 @@ a:hover {
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-}
-
-.elsewhere a {
-  text-decoration: none;
 }
 
 .elsewhere-sep {

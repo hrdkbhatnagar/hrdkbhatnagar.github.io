@@ -111,6 +111,7 @@ a {
   color: var(--rubric);
   text-decoration: none;
   transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent; /* the :active states below stand in for the grey tap flash */
 }
 
 a:hover {
@@ -140,6 +141,13 @@ a:hover {
     color: var(--rubric);
     text-decoration-color: var(--rubric);
   }
+}
+
+.bio a:active,
+.elsewhere a:active,
+.project-description a:active {
+  color: var(--rubric);
+  text-decoration-color: var(--rubric);
 }
 
 /* Titles */
@@ -199,6 +207,15 @@ a:hover {
   .section-link:hover .section-link-arrow {
     transform: translateX(3px);
   }
+}
+
+.section-link:active {
+  color: var(--rubric);
+}
+
+/* Only phones show the link under the list (see the small-screens block) */
+.section-link--end {
+  display: none;
 }
 
 /* Riso prints (art/riso.html, baked by art/export.mjs) ---------------------
@@ -279,6 +296,7 @@ a:hover {
   line-height: 1.72;
   margin-bottom: 1.1rem;
   hanging-punctuation: first;
+  text-wrap: pretty;
 }
 
 .elsewhere {
@@ -423,6 +441,7 @@ a:hover {
   line-height: 1.32;
   letter-spacing: -0.005em;
   margin-bottom: 0.35rem;
+  text-wrap: pretty;
 }
 
 .publication-content h3 a {
@@ -439,16 +458,22 @@ a:hover {
   }
 }
 
+.publication-content h3 a:active {
+  color: var(--rubric);
+}
+
 .publication-authors {
   font-size: 0.97rem;
   line-height: 1.5;
   color: var(--ink-faded);
   margin-bottom: 0.45rem;
+  text-wrap: pretty;
 }
 
 .publication-authors .highlight {
   color: var(--ink);
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .publication-meta {
@@ -498,7 +523,7 @@ a:hover {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  transition: background-color 150ms ease, color 150ms ease;
+  transition: background-color 150ms ease, color 150ms ease, transform 160ms var(--ease-out);
 }
 
 [data-theme="dark"] .publication-link {
@@ -510,6 +535,12 @@ a:hover {
     background: color-mix(in srgb, var(--rubric) 14%, var(--paper));
     color: var(--ink);
   }
+}
+
+.publication-link:active {
+  background: color-mix(in srgb, var(--rubric) 14%, var(--paper));
+  color: var(--ink);
+  transform: scale(0.97);
 }
 
 .publication-award {
@@ -642,7 +673,7 @@ a:hover {
     flex-direction: column-reverse;
     align-items: center;
     gap: 2.25rem;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.25rem;
   }
 
   .portrait {
@@ -654,7 +685,7 @@ a:hover {
   }
 
   .section-break {
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.25rem;
   }
 
   .neuron-rule--long {
@@ -668,6 +699,17 @@ a:hover {
   .section-header {
     flex-wrap: wrap;
     margin-bottom: 2rem;
+  }
+
+  /* On a phone, "All publications" waits under the list instead of between
+     the equal-contribution note and the papers it explains */
+  .section-header .section-link {
+    display: none;
+  }
+
+  .section-link--end {
+    display: inline-flex;
+    margin-top: 1.5rem;
   }
 
   .elsewhere {
@@ -707,8 +749,8 @@ a:hover {
 
   .publication-link {
     padding: 0.26rem 0.55rem 0.22rem;
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
   }
 
   /* Keep a phone to one row of tags; the blog link shows on wider screens */
@@ -718,8 +760,31 @@ a:hover {
 
   .publication-venue {
     margin-top: 0.5rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Touch: the small uppercase links get a finger-sized hit area (about 44px
+   tall) without changing how they look. Sideways it stops short of the gap
+   to the next link, so neighbours never overlap.                           */
+@media (pointer: coarse) {
+  .elsewhere a,
+  .section-link,
+  .publication-link {
+    position: relative;
+  }
+
+  .elsewhere a::after,
+  .section-link::after,
+  .publication-link::after {
+    content: "";
+    position: absolute;
+    inset: -12px -8px;
+  }
+
+  .publication-link::after {
+    inset: -11px -2px;
   }
 }
 

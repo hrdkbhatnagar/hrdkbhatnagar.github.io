@@ -27,6 +27,8 @@
     margin-left: -0.3rem;
     color: var(--ink-faded);
     transition: color 150ms ease, transform 120ms var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,6 +36,15 @@
 
   .theme-toggle:active {
     transform: scale(0.9);
+  }
+
+  /* Touch: grow the 34px button's hit area to 44px */
+  @media (pointer: coarse) {
+    .theme-toggle::after {
+      content: "";
+      position: absolute;
+      inset: -5px;
+    }
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -70,7 +81,9 @@
     const apply = () => {
       root.classList.add('theme-switching');
       root.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.setAttribute('content', getComputedStyle(root).getPropertyValue('--paper').trim());
+      try { localStorage.setItem('theme', newTheme); } catch {}
     };
     // Cross-fade the whole page at once, so paper, ink and prints change together
     const done = document.startViewTransition ? document.startViewTransition(apply).finished : Promise.resolve(apply());

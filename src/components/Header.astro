@@ -95,6 +95,23 @@ const navLinks = [
     }
   }
 
+  .nav-link:active {
+    color: var(--ink);
+  }
+
+  /* Touch: a finger-sized hit area around the small nav labels */
+  @media (pointer: coarse) {
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      inset: -12px -10px;
+    }
+  }
+
   .nav-link.active {
     text-decoration: underline;
     text-decoration-color: var(--rubric);

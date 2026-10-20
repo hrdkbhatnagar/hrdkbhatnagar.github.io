@@ -349,6 +349,18 @@ a:hover {
   display: none;
 }
 
+/* Every page ends on the stroke from under the name, like the ornament that
+   closes a chapter */
+.end-mark {
+  display: flex;
+  justify-content: center;
+  margin-top: 4.5rem;
+}
+
+.end-mark .riso {
+  width: 132px;
+}
+
 /* Publications ---------------------------------------------------------- */
 .publications-list {
   display: flex;

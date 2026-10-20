@@ -1,4 +1,6 @@
 ---
+import Riso from '../components/Riso.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -42,6 +44,9 @@ const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen
   <body>
     <div class="container">
       <slot />
+      <div class="end-mark" aria-hidden="true">
+        <Riso name="underline" />
+      </div>
     </div>
     <script>
       // iOS Safari only shows :active press states once the page listens for touches

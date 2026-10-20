@@ -17,7 +17,7 @@
   },
   {
     "title": "Inferring neuronal computation from partial observations",
-    "description": "Investigated methods for inferring a neuron's computations from incomplete observations of its inputs and outputs. Simulated neurons as hierarchical linear-nonlinear models using PyTorch and utilized gradient descent methods to infer parameters.",
+    "description": "Investigated methods for inferring a neuron’s computations from incomplete observations of its inputs and outputs. Simulated neurons as hierarchical linear-nonlinear models using PyTorch and utilized gradient descent methods to infer parameters.",
     "date": "Feb - Aug 2022",
     "institution": "Allen Institute of Brain Sciences, Seattle",
     "tags": ["Computational Neuroscience", "PyTorch", "Neural Modeling"],

@@ -7,6 +7,10 @@ interface Props {
 }
 
 const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen AI Center working on LLM evaluation and safety" } = Astro.props;
+
+// Link previews (Slack, Twitter, LinkedIn…) need absolute URLs
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const previewImage = new URL('/og.png', Astro.site);
 ---
 
 <!doctype html>
@@ -16,6 +20,17 @@ const { title, description = "Hardik Bhatnagar - PhD researcher at the Tübingen
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3eee3" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hardik Bhatnagar" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={previewImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hardik Bhatnagar" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@hrdkbhatnagar" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -1,5 +1,17 @@
 [
   {
+    "title": "Benchmarks Are Surprisingly Compaction-Friendly",
+    "authors": ["Jeanne Salle*", "Hardik Bhatnagar*", "Matthias Bethge", "Sahar Abdelnabi", "Maksym Andriushchenko"],
+    "venue": "Preprint",
+    "year": 2026,
+    "figure": "fig-compaction",
+    "featured": true,
+    "links": {
+      "paper": "https://arxiv.org/abs/2610.31778",
+      "code": "https://github.com/aisa-group/compaction"
+    }
+  },
+  {
     "title": "Towards Robust Model Organisms for Eliciting Latent Knowledge",
     "authors": ["Lennart Finke*", "Hardik Bhatnagar*", "Euodia Dodd*", "Francis Rhys Ward", "Yves-Alexandre de Montjoye", "Matthias Bethge", "Mary Phuong"],
     "venue": "Preprint",

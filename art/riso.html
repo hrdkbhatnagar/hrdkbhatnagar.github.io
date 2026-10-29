@@ -1046,6 +1046,34 @@ const ASSETS = {
     },
   }),
 
+  // Compaction: with each compaction the summary keeps fewer of the task's three rules (clay climbs
+  // towards the dashed "all three gone"), while fewer and fewer runs last that long (the pale skyline)
+  'fig-compaction': Object.assign({}, FIG, {
+    draw(g, ink, rng, sr, pass) {
+      const dropped = [0.92, 1.2, 1.33, 1.48, 1.46, 1.67, 1.81, 1.81, 1.79, 1.95, 2.1, 2.32, 2.29, 2.35, 2.42, 2.47,
+        2.5, 2.53, 2.52, 2.57, 2.58, 2.52, 2.54, 2.54, 2.63, 2.64, 2.65, 2.69, 2.67, 2.66, 2.74, 2.74, 2.75];
+      const runs = [126, 123, 118, 112, 90, 73, 68, 62, 57, 50, 44, 40, 37, 35, 35, 33,
+        31, 31, 30, 29, 28, 25, 24, 24, 22, 22, 19, 18, 17, 16, 15, 15, 15];
+      const n = dropped.length, x0 = 22, slot = (262 - x0) / n, ceil = BASE - H;
+      const xAt = (i) => x0 + (i + 0.5) * slot, yAt = (v) => BASE - (v / 3) * H;
+      // the runs that reach each compaction, three compactions to a bar
+      const skyline = new Path2D();
+      for (let i = 0; i < n; i += 3) {
+        const r = (runs[i] + runs[i + 1] + runs[i + 2]) / 3, top = BASE - (r / 126) * H * 0.52;
+        skyline.addPath(slab(x0 + i * slot + 1.6, top, x0 + (i + 3) * slot - 1.6, BASE + 0.5, sr));
+      }
+      const axis = axisPath(sr);
+      const ceiling = dashes(x0, x0 + n * slot, ceil, sr);
+      const line = pulled(dropped.map((v, i) => [xAt(i), yAt(v)]), 2.4, sr);
+      const dots = new Path2D();
+      dropped.forEach((v, i) => { if (i % 4 === 0 || i === n - 1) dots.addPath(cut(ringPts(xAt(i), yAt(v), 3.8, 3.8, 8), sr, { amp: 0.35 })); });
+      if (ink === 'slate' && pass === 'tone') print(g, skyline, 0.26);
+      if (ink === 'slate' && pass === 'line') { g.fill(axis); g.fill(ceiling); }
+      if (ink === 'clay' && pass === 'mass') g.fill(dots);
+      if (ink === 'clay' && pass === 'line') g.fill(line);
+    },
+  }),
+
   // Sandbagging: Figure 1's scatter. Prior model organisms (slate) trade robustness for retention;
   // training lifts the base model (pale) straight up to the top (clay)
   'fig-sandbagging': Object.assign({}, FIG, {
